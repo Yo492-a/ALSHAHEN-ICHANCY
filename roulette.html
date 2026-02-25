@@ -14,6 +14,8 @@
             color: #fff;
             text-align: center;
             font-family: sans-serif;
+            margin: 0;
+            padding: 0;
         }
 
         h2 {
@@ -27,7 +29,7 @@
             margin-bottom: 20px;
         }
 
-        /* السهم ثابت فوق العجلة */
+        /* السهم */
         .pointer {
             width: 0;
             height: 0;
@@ -36,22 +38,23 @@
             border-top: 30px solid red;
             margin: 0 auto;
             margin-bottom: -10px;
-            position: relative;
             z-index: 10;
+            position: relative;
         }
 
-        /* العجلة تلف طبيعي بدون أي إطار أبيض */
-        .wheel {
+        /* العجلة كصورة حقيقية */
+        .wheel-container {
             width: 320px;
             height: 320px;
-            margin: 20px auto;
-            border-radius: 50%;
-            background-image: url("wheel.png");
-            background-size: 100% 100% !important;
-            background-position: center;
-            transition: transform 4s cubic-bezier(0.15, 0.85, 0.25, 1);
-            display: block;
+            margin: 0 auto;
             position: relative;
+        }
+
+        .wheel {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            transition: transform 4s cubic-bezier(0.15, 0.85, 0.25, 1);
         }
 
         button {
@@ -84,7 +87,10 @@
     <p class="subtitle">اللفة المجانية اليومية</p>
 
     <div class="pointer"></div>
-    <div id="wheel" class="wheel"></div>
+
+    <div class="wheel-container">
+        <img id="wheel" class="wheel" src="wheel.png">
+    </div>
 
     <div id="timer"></div>
 
@@ -99,7 +105,6 @@
     let spinning = false;
     let canSpin = true;
 
-    // Hard Luck sector index
     const hardLuckIndex = 5;
     const sectors = 8;
     const sectorAngle = 360 / sectors;
@@ -110,7 +115,6 @@
 
         const wheel = document.getElementById("wheel");
 
-        // حساب زاوية Hard Luck
         const targetAngle = 360 - (hardLuckIndex * sectorAngle + sectorAngle / 2);
         const finalRotation = 360 * 5 + targetAngle;
 
