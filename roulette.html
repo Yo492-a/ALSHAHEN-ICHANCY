@@ -40,16 +40,18 @@
             z-index: 10;
         }
 
-        /* العجلة نفسها تلف بدون أي إطار أبيض */
+        /* العجلة تلف طبيعي بدون أي إطار أبيض */
         .wheel {
             width: 320px;
             height: 320px;
             margin: 20px auto;
             border-radius: 50%;
             background-image: url("wheel.png");
-            background-size: 100% 100%;
+            background-size: 100% 100% !important;
             background-position: center;
             transition: transform 4s cubic-bezier(0.15, 0.85, 0.25, 1);
+            display: block;
+            position: relative;
         }
 
         button {
@@ -97,6 +99,7 @@
     let spinning = false;
     let canSpin = true;
 
+    // Hard Luck sector index
     const hardLuckIndex = 5;
     const sectors = 8;
     const sectorAngle = 360 / sectors;
@@ -107,6 +110,7 @@
 
         const wheel = document.getElementById("wheel");
 
+        // حساب زاوية Hard Luck
         const targetAngle = 360 - (hardLuckIndex * sectorAngle + sectorAngle / 2);
         const finalRotation = 360 * 5 + targetAngle;
 
