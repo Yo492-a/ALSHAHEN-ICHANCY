@@ -27,30 +27,31 @@
             margin-bottom: 20px;
         }
 
-        /* السهم */
+        /* السهم ثابت فوق العجلة */
         .pointer {
             width: 0;
             height: 0;
             border-left: 18px solid transparent;
             border-right: 18px solid transparent;
-            border-top: 30px solid red; /* سهم صحيح */
+            border-top: 30px solid red;
             margin: 0 auto;
             margin-bottom: -10px;
+            position: relative;
+            z-index: 10;
         }
 
-        /* العجلة */
+        /* العجلة نفسها تلف بدون أي إطار أبيض */
         .wheel {
             width: 320px;
             height: 320px;
             margin: 20px auto;
             border-radius: 50%;
             background-image: url("wheel.png");
-            background-size: cover;
+            background-size: 100% 100%;
             background-position: center;
             transition: transform 4s cubic-bezier(0.15, 0.85, 0.25, 1);
         }
 
-        /* زر التدوير */
         button {
             padding: 12px 20px;
             background: #ff9800;
@@ -61,14 +62,12 @@
             margin-top: 20px;
         }
 
-        /* المؤقت */
         #timer {
             margin-top: 15px;
             font-size: 18px;
             opacity: 0.8;
         }
 
-        /* شعار صغير */
         .logo {
             font-size: 14px;
             opacity: 0.7;
@@ -98,7 +97,6 @@
     let spinning = false;
     let canSpin = true;
 
-    // زاوية Hard Luck (حسب مكانها على الصورة)
     const hardLuckIndex = 5;
     const sectors = 8;
     const sectorAngle = 360 / sectors;
@@ -114,15 +112,14 @@
 
         wheel.style.transform = `rotate(${finalRotation}deg)`;
 
-        // إرسال النتيجة للبوت
         setTimeout(() => {
             tg.sendData(JSON.stringify({
                 type: "spin_result",
-                result: "hard_luck"
+                result: "hard_luck",
+                message: "حظ أوفر حاول غداً"
             }));
         }, 4200);
 
-        // بدء مؤقت 24 ساعة
         startTimer(24);
         canSpin = false;
     };
